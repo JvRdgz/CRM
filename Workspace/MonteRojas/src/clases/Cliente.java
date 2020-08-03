@@ -1,7 +1,12 @@
 package clases;
 
+import java.util.logging.Logger;
+
+import dao.OperacionesFicheros;
+
 public class Cliente {
 
+	private static Logger log = Logger.getLogger(OperacionesFicheros.class);
 	private int id;
 	private String nombre;
 	private String apellidos;
