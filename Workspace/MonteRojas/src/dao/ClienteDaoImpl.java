@@ -1,10 +1,7 @@
 package dao;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,11 +11,11 @@ import javax.swing.JOptionPane;
 import idao.IClienteDao;
 import model.Cliente;
 import model.Files;
+import persistence.Persistence;
 
 public class ClienteDaoImpl implements IClienteDao {
 
-	@Override
-	public void create(Cliente c) {
+	private void createWithFileMethod(Cliente c) {
 		try {
 			File f = new File(Files.getFicheroClientes());
 			if (!f.exists())
@@ -33,10 +30,22 @@ public class ClienteDaoImpl implements IClienteDao {
 		}
 	}
 
+	private void createWithBbddMethod(Cliente c) {
+		// TODO CREATE CONNECTION AND CALL INSERT METHOD FROM JDBC OPERATIONS.
+	}
+
 	@Override
-	public Cliente read(int id) {
+	public void create(Cliente c) {
+		if (Persistence.isFileMethod())
+			createWithFileMethod(c);
+		else if (Persistence.isBbddMethod())
+			createWithBbddMethod(c);
+	}
+
+	public Cliente readWithFiles(int id) {
+
 		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
-		
+
 		clientes = readall();
 		if (clientes.size() == 0)
 			JOptionPane.showMessageDialog(null, "No existen clientes guardados.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -48,6 +57,21 @@ public class ClienteDaoImpl implements IClienteDao {
 		}
 		JOptionPane.showMessageDialog(null, "Cliente no encontrado.", "Error", JOptionPane.WARNING_MESSAGE);
 		return null;
+	}
+
+	private Cliente readWithBbdd(int id) {
+		// TODO CREATE CONNECTION AND CALL SHOWCLIENTS METHOD FROM JDBC OPERATIONS.
+		return null;
+	}
+
+	@Override
+	public Cliente read(int id) {
+		Cliente c = null;
+		if (Persistence.isFileMethod()) {
+			c = readWithFiles(id);
+		} else if (Persistence.isBbddMethod())
+			c = readWithBbdd(id);
+		return c;
 	}
 
 	@Override

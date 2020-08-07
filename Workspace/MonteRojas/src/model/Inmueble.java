@@ -1,8 +1,8 @@
 package model;
 
-import tipo.TipoInteriorExterior;
-import tipo.TipoVentaAlquiler;
-import tipo.TipoVivienda;
+import type.TipoInteriorExterior;
+import type.TipoVentaAlquiler;
+import type.TipoVivienda;
 
 public class Inmueble {
 

@@ -1,4 +1,4 @@
-package tipo;
+package type;
 
 public enum TipoVentaAlquiler {
 
