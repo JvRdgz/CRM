@@ -12,6 +12,14 @@ public class Cliente {
 		this.id = id;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
+		this.numTelefono = numTelefono;
+		this.email = email;
+	}
+	
+	public Cliente(String nombre, String apellidos, String numTelefono, String email) {
+		this.nombre = nombre;
+		this.apellidos = apellidos;
+		this.numTelefono = numTelefono;
 		this.email = email;
 	}
 
